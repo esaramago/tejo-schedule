@@ -1,0 +1,12 @@
+// Variables
+$base-color: #508fcc;
+$base-color-light: #A7C2DC;
+$light-grey: #ededed;
+$grey: #888;
+
+// Mixins
+@mixin transition($transition) {
+	-webkit-transition: #{$transition};
+       -moz-transition: #{$transition};
+	        transition: #{$transition};
+}

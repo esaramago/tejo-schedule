@@ -1,0 +1,20 @@
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+
+.fadeout {
+    visibility: hidden;
+    opacity: 0;
+    @include transition("visibility 0s linear 0.3s, opacity 0.3s linear");
+}
+.fadein {
+    visibility: visible;
+    opacity: 1;
+	-webkit-transition: 0s;
+	        transition: 0s;
+}

@@ -1,6 +1,5 @@
-a {
-    cursor: pointer;
-    span {
-        color: red;
-    }
-}
+@import "flexbox";
+@import "config";
+@import "reset";
+@import "helpers";
+@import "styles";
