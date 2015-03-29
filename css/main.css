@@ -5,7 +5,6 @@ body {
 
 html {
 	font-size: 62.5%;
-	-webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -35,8 +34,7 @@ ul {
 	clear: both;
 }
 
-.fadeout,
-.schedule {
+.fadeout {
 	visibility: hidden;
 	opacity: 0;
 	-webkit-transition: visibility 0s linear 0.3s, opacity 0.3s linear;
@@ -44,8 +42,7 @@ ul {
 	transition: visibility 0s linear 0.3s, opacity 0.3s linear;
 }
 
-.fadein,
-.schedule.active {
+.fadein {
 	visibility: visible;
 	opacity: 1;
 	-webkit-transition: 0s;
@@ -70,10 +67,12 @@ ul {
 	left: 0;
 	overflow: hidden;
 	min-width: 240px;
+	height: 100%;
 }
 
 .page {
 	left: 100%;
+	overflow: auto;
 	background-color: #ededed;
 	-webkit-transition: left .4s;
 	-moz-transition: left .4s;
@@ -96,6 +95,7 @@ ul {
 
 .page-heading {
 	font-size: 1.2rem;
+	line-height: 1.9rem;
 }
 
 .page-heading > .bigger {
@@ -106,7 +106,9 @@ ul {
 
 .back-to-home {
 	float: left;
-	margin-right: 16px;
+	height: 45px;
+	padding: 0 16px;
+	margin-left: -10px;
 }
 
 .arrow-back {
@@ -123,10 +125,11 @@ ul {
 	position: absolute;
 	top: 0;
 	left: 0;
+	overflow: auto;
 	box-sizing: border-box;
-	height: 100%;
 	width: 100%;
-	padding: 59px 8px 112px;
+	height: 100%;
+	padding: 59px 8px 0;
 }
 
 .box {
@@ -199,6 +202,7 @@ ul {
 	border-radius: 3px;
 	background-color: #508fcc;
 	color: #FFF;
+	line-height: 66px;
 }
 
 .countdown-item > span {
@@ -228,22 +232,22 @@ ul {
 	text-align: center;
 }
 
-.nav .nav-tab {
+.nav .active {
+	border-bottom-color: #508fcc;
+	font-weight: 500;
+}
+
+.nav-tab {
 	display: table-cell;
 	vertical-align: middle;
 	width: 33%;
-	padding-bottom: 8px;
+	padding: 6px 0;
 	border-right: 1px solid #A7C2DC;
 	border-bottom: 5px solid transparent;
 }
 
-.nav .nav-tab:last-child {
+.nav-tab:last-child {
 	border-right: none;
-}
-
-.nav .active {
-	border-bottom-color: #508fcc;
-	font-weight: 500;
 }
 
 .schedule-wrapper {
@@ -269,12 +273,20 @@ ul {
 	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
 	color: #888;
-	font-size: 1.4rem;
+	font-size: 1.6rem;
 	text-align: center;
+	opacity: 0;
+	-webkit-transition: opacity .2s .2s;
+	-moz-transition: opacity .2s .2s;
+	transition: opacity .2s .2s;
 }
 
 .schedule.active {
 	top: 0;
+	opacity: 1;
+	-webkit-transition: opacity .2s 0;
+	-moz-transition: opacity .2s 0;
+	transition: opacity .2s 0;
 }
 
 .schedule > div {

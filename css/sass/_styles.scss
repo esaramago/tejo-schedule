@@ -17,9 +17,11 @@
     left: 0;
     overflow: hidden;
     min-width: 240px;
+    height: 100%;
 }
 .page {
     left: 100%;
+    overflow: auto;
     background-color: $light-grey;
     @include transition(left .4s);
     &.active {
@@ -39,6 +41,7 @@
 }
 .page-heading {
     font-size: 1.2rem;
+    line-height: 1.9rem;
     > .bigger {
         font-size: 1.6rem;
         display: block;
@@ -47,7 +50,9 @@
 }
 .back-to-home {
     float: left;
-    margin-right: 16px;
+    height: 45px;
+    padding: 0 16px;
+    margin-left: -10px;
 }
 .arrow-back {
     display: inline-block;
@@ -65,10 +70,11 @@
     position: absolute;
     top: 0;
     left: 0;
+    overflow: auto;
     box-sizing: border-box;
-    height: 100%;
     width: 100%;
-    padding: 59px 8px 112px;
+    height: 100%;
+    padding: 59px 8px 0;
 }
 
 .box {
@@ -128,6 +134,7 @@
     border-radius: 3px;
     background-color: $base-color;
     color: #FFF;
+    line-height: 66px;
     > span {
         position: relative;
     }
@@ -157,20 +164,20 @@
     margin-bottom: 20px;
     font-size: 1.4rem;
     text-align: center;
-    .nav-tab {
-        display: table-cell;
-        vertical-align: middle;
-        width: 33%;
-        padding-bottom: 8px;
-        border-right: 1px solid $base-color-light;
-        border-bottom: 5px solid transparent;
-        &:last-child {
-            border-right: none;
-        }
-    }
     .active {
         border-bottom-color: $base-color;
         font-weight: 500;
+    }
+}
+.nav-tab {
+    display: table-cell;
+    vertical-align: middle;
+    width: 33%;
+    padding: 6px 0;
+    border-right: 1px solid $base-color-light;
+    border-bottom: 5px solid transparent;
+    &:last-child {
+        border-right: none;
     }
 }
 
@@ -188,12 +195,14 @@
     @include flexbox();
     @include flex-wrap(wrap);
     color: $grey;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     text-align: center;
-    @extend .fadeout;
+    opacity: 0;
+    @include transition(opacity .2s .2s);
     &.active {
-        @extend .fadein;
         top: 0;
+        opacity: 1;
+        @include transition(opacity .2s 0);
     }
     > div {
         width: 25%;

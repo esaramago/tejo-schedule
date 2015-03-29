@@ -51,37 +51,19 @@ $.getJSON( "json/terreiro-barreiro.json", function( data ) {
 
 
 // Page transitions
-$('#outbound-trip').on('click', function() {
+$('#outbound-trip').on('tap swipeleft', function() {
     $('#outbound-schedule').addClass('active');
 });
-$("#outbound-trip").swipe( {
-    swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
-        if (direction == 'left') {
-            $('#outbound-schedule').addClass('active');
-        }
-    }
-});
-
-$('#return-trip').on('click', function() {
+$('#return-trip').on('tap swipeleft', function() {
     $('#return-schedule').addClass('active');
 });
-$("#return-trip").swipe( {
-    swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
-        if (direction == 'left') {
-            $('#return-schedule').addClass('active');
-        }
-    }
-});
 
-$('.back-to-home').on('click', function() {
-    $('#outbound-schedule, #return-schedule').removeClass('active');
+var schedules = $('#outbound-schedule, #return-schedule');
+$('.back-to-home').on('tap', function() {
+    schedules.removeClass('active');
 });
-$('.schedule-wrapper').swipe( {
-    swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
-        if (direction == 'right') {
-            $('#outbound-schedule, #return-schedule').removeClass('active');
-        }
-    }
+$('.schedule-wrapper').on('swiperight', function() {
+    schedules.removeClass('active');
 });
 
 
@@ -97,7 +79,7 @@ $('.nav-tab').on('click', function() {
     $this.addClass('active');
 
     // tabs
-    $('.schedule').removeClass('active');
+    $this.closest('.page-content').find('.schedule').removeClass('active');
     $('#'+ schedule +'-schedule').addClass('active');
 });
 
