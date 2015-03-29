@@ -10,8 +10,8 @@
 .page {
     position: absolute;
     top: 0;
-    right: 0;
     bottom: 0;
+    width: 100%;
 }
 .wrapper {
     left: 0;
@@ -29,6 +29,8 @@
 
 // HEADER
 .page-header {
+    position: relative;
+    z-index: 1;
     box-sizing: border-box;
     height: 50px;
     padding: 6px 15px;
@@ -43,14 +45,34 @@
         text-transform: uppercase;
     }
 }
+.back-to-home {
+    float: left;
+    margin-right: 16px;
+}
+.arrow-back {
+    display: inline-block;
+    padding: 6px;
+    border-top: 3px solid #FFF;
+    border-left: 3px solid #FFF;
+    margin-top: 14px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
 
 // CONTENT
 .page-content {
-    padding: 8px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    padding: 59px 8px 112px;
 }
 
 .box {
-    @extend .clearfix;
+    position: relative;
     display: block;
     box-sizing: border-box;
     padding: 15px;
@@ -121,4 +143,74 @@
 }
 .countdown-separator {
     color: $base-color;
+}
+
+
+
+
+
+
+.nav {
+    display: table;
+    width: 100%;
+    border-bottom: 1px solid $base-color-light;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    text-align: center;
+    .nav-tab {
+        display: table-cell;
+        vertical-align: middle;
+        width: 33%;
+        padding-bottom: 8px;
+        border-right: 1px solid $base-color-light;
+        border-bottom: 5px solid transparent;
+        &:last-child {
+            border-right: none;
+        }
+    }
+    .active {
+        border-bottom-color: $base-color;
+        font-weight: 500;
+    }
+}
+
+.schedule-wrapper {
+    position: relative;
+    overflow: auto;
+    height: 100%;
+    margin-left: -12px;
+    margin-right: -12px;
+}
+.schedule {
+    position: absolute;
+    top: -99999px;
+    left: 0;
+    @include flexbox();
+    @include flex-wrap(wrap);
+    color: $grey;
+    font-size: 1.4rem;
+    text-align: center;
+    @extend .fadeout;
+    &.active {
+        @extend .fadein;
+        top: 0;
+    }
+    > div {
+        width: 25%;
+        padding: 6px 0;
+    }
+    span {
+        display: inline-block;
+        width: 55px;
+        padding: 6px 0;
+    }
+    .active {
+        border: 1px solid $base-color;
+        background-color: #f3fbff;
+        color: $base-color;
+    }
+    .current {
+        border-width: 2px;
+        font-weight: 500;
+    }
 }

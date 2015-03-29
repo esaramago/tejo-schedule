@@ -19,20 +19,24 @@ h1 {
 	font-weight: normal;
 }
 
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
 .clearfix:before,
-.box:before,
-.clearfix:after,
-.box:after {
+.clearfix:after {
 	content: " ";
 	display: table;
 }
 
-.clearfix:after,
-.box:after {
+.clearfix:after {
 	clear: both;
 }
 
-.fadeout {
+.fadeout,
+.schedule {
 	visibility: hidden;
 	opacity: 0;
 	-webkit-transition: visibility 0s linear 0.3s, opacity 0.3s linear;
@@ -40,7 +44,8 @@ h1 {
 	transition: visibility 0s linear 0.3s, opacity 0.3s linear;
 }
 
-.fadein {
+.fadein,
+.schedule.active {
 	visibility: visible;
 	opacity: 1;
 	-webkit-transition: 0s;
@@ -57,8 +62,8 @@ h1 {
 .page {
 	position: absolute;
 	top: 0;
-	right: 0;
 	bottom: 0;
+	width: 100%;
 }
 
 .wrapper {
@@ -80,6 +85,8 @@ h1 {
 }
 
 .page-header {
+	position: relative;
+	z-index: 1;
 	box-sizing: border-box;
 	height: 50px;
 	padding: 6px 15px;
@@ -97,11 +104,33 @@ h1 {
 	text-transform: uppercase;
 }
 
+.back-to-home {
+	float: left;
+	margin-right: 16px;
+}
+
+.arrow-back {
+	display: inline-block;
+	padding: 6px;
+	border-top: 3px solid #FFF;
+	border-left: 3px solid #FFF;
+	margin-top: 14px;
+	-webkit-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+
 .page-content {
-	padding: 8px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	box-sizing: border-box;
+	height: 100%;
+	width: 100%;
+	padding: 59px 8px 112px;
 }
 
 .box {
+	position: relative;
 	display: block;
 	box-sizing: border-box;
 	padding: 15px;
@@ -188,5 +217,85 @@ h1 {
 
 .countdown-separator {
 	color: #508fcc;
+}
+
+.nav {
+	display: table;
+	width: 100%;
+	border-bottom: 1px solid #A7C2DC;
+	margin-bottom: 20px;
+	font-size: 1.4rem;
+	text-align: center;
+}
+
+.nav .nav-tab {
+	display: table-cell;
+	vertical-align: middle;
+	width: 33%;
+	padding-bottom: 8px;
+	border-right: 1px solid #A7C2DC;
+	border-bottom: 5px solid transparent;
+}
+
+.nav .nav-tab:last-child {
+	border-right: none;
+}
+
+.nav .active {
+	border-bottom-color: #508fcc;
+	font-weight: 500;
+}
+
+.schedule-wrapper {
+	position: relative;
+	overflow: auto;
+	height: 100%;
+	margin-left: -12px;
+	margin-right: -12px;
+}
+
+.schedule {
+	position: absolute;
+	top: -99999px;
+	left: 0;
+	display: box;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	-moz-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	color: #888;
+	font-size: 1.4rem;
+	text-align: center;
+}
+
+.schedule.active {
+	top: 0;
+}
+
+.schedule > div {
+	width: 25%;
+	padding: 6px 0;
+}
+
+.schedule span {
+	display: inline-block;
+	width: 55px;
+	padding: 6px 0;
+}
+
+.schedule .active {
+	border: 1px solid #508fcc;
+	background-color: #f3fbff;
+	color: #508fcc;
+}
+
+.schedule .current {
+	border-width: 2px;
+	font-weight: 500;
 }
 
