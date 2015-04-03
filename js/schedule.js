@@ -58,7 +58,9 @@ function schedule() {
                     $('#outbound-countdown').countdown(yyyy +'/'+ mm +'/'+ dd +' '+ val.hour +':'+ val.minute +':00', function(event) {
                         var $this = $(this).html(event.strftime(''
                             + '<div class="countdown-item"><span>%H</span></div>'
+                            + '<span class="countdown-separator">:</span>'
                             + '<div class="countdown-item"><span>%M</span></div>'
+                            + '<span class="countdown-separator">:</span>'
                             + '<div class="countdown-item"><span>%S</span></div>'));
                     }).on('finish.countdown', function(event) {
                         schedule();
