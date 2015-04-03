@@ -21,7 +21,6 @@
 }
 .page {
     left: 100%;
-    overflow: auto;
     background-color: $light-grey;
     @include transition(left .4s);
     &.active {
@@ -70,11 +69,16 @@
     position: absolute;
     top: 0;
     left: 0;
-    overflow: auto;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    padding: 59px 8px 0;
+    padding: 59px 8px 8px;
+}
+
+
+.home-page .page-content {
+    overflow: auto;
+    padding-bottom: 0;
 }
 
 .box {
@@ -113,9 +117,6 @@
 .later-boat {
     text-align: right;
 }
-.next-boat {
-    margin-top: 20px;
-}
 .later-boat {
     color: $grey;
 }
@@ -123,7 +124,7 @@
 .countdown {
     @include flexbox();
     @include justify-content(space-between);
-    margin: 5px 0;
+    margin: 20px 0 5px;
     font-size: 4.6rem;
     text-align: center;
 }
@@ -157,6 +158,11 @@
 
 
 
+.schedule-page {
+    @include flexbox();
+    @include flex-direction(column);
+    height: 100%;
+}
 .nav {
     display: table;
     width: 100%;
@@ -181,6 +187,11 @@
     }
 }
 
+.schedule-box {
+    @include flexbox();
+    @include flex-direction(column);
+    height: 100%;
+}
 .schedule-wrapper {
     position: relative;
     overflow: auto;

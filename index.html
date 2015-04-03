@@ -76,7 +76,7 @@
 <body>
 
     <div class="wrapper">
-        <div class="page active">
+        <div class="page home-page active">
             <header class="page-header">
                 <h1 class="page-heading">
                     Horários
@@ -95,31 +95,32 @@
                     </div>
 
                     <div class="content-box">
+
+                        <div class="countdown" id="outbound-countdown">
+                            <!--<div class="countdown-item">
+                                <span id="outbound-hour">0 -</span>
+                            </div>
+                            <span class="countdown-separator">:</span>
+                            <div class="countdown-item">
+                                <span id="outbound-minute">- -</span>
+                            </div>
+                            <span class="countdown-separator">:</span>
+                            <div class="countdown-item">
+                                <span id="outbound-second">- -</span>
+                            </div>-->
+                        </div>
+
                         <div class="next-boat">
-                            <span class="label">Partida</span>
-                            <span>18:20</span>
+                            <span class="label">A próxima partida é às </span>
+                            <span id="next-outbound-departure">- -:- -</span>
                         </div>
-
-                        <div class="countdown">
-                            <div class="countdown-item">
-                                <span>00</span>
-                            </div>
-                            <span class="countdown-separator">:</span>
-                            <div class="countdown-item">
-                                <span>08</span>
-                            </div>
-                            <span class="countdown-separator">:</span>
-                            <div class="countdown-item">
-                                <span>43</span>
-                            </div>
-                        </div>
-
                         <div class="later-boat">
-                            <span class="label">Se não apanhar este barco há outro às</span>
-                            <span>18:30</span>
+                            <span class="label">A seguinte é às</span>
+                            <span id="later-outbound-departure">--:--</span>
                         </div>
                     </div>
                 </article>
+
                 <article class="box" tabindex="0" id="return-trip">
                     <div class="route">
                         <span class="label">De</span>
@@ -131,12 +132,8 @@
                     </div>
 
                     <div class="content-box">
-                        <div class="next-boat">
-                            <span class="label">Partida</span>
-                            <span>18:20</span>
-                        </div>
 
-                        <div class="countdown">
+                        <div class="countdown" id="return-contdown">
                             <div class="countdown-item">
                                 <span>00</span>
                             </div>
@@ -150,15 +147,21 @@
                             </div>
                         </div>
 
+                        <div class="next-boat">
+                            <span class="label">A próxima partida é às </span>
+                            <span id="next-return-departure"></span>
+                        </div>
                         <div class="later-boat">
-                            <span><span class="label">Se não apanhar este barco há outro às </span>18:30</span>
-
+                            <span class="label">A seguinte é às </span>
+                            <span id="later-return-departure"></span>
                         </div>
                     </div>
                 </article>
             </section>
         </div>
-        <div class="page" id="outbound-schedule">
+
+        <!-- OUTBOUND -->
+        <div class="page schedule-page" id="outbound-schedule">
             <header class="page-header">
                 <a role="button" class="back-to-home">
                     <span class="arrow-back"></span>
@@ -169,7 +172,7 @@
                 </h1>
             </header>
             <section class="page-content">
-                <article class="box">
+                <article class="box schedule-box">
                     <ul class="nav">
                         <li tabindex="0" class="nav-tab active" data-schedule="weekdays-outbound">Dias úteis</li>
                         <li tabindex="0" class="nav-tab" data-schedule="saturdays-outbound">Sábados</li>
@@ -183,7 +186,9 @@
                 </article>
             </section>
         </div>
-        <div class="page" id="return-schedule">
+
+        <!-- RETURN -->
+        <div class="page schedule-page" id="return-schedule">
             <header class="page-header">
                 <a role="button" class="back-to-home">
                     <span class="arrow-back"></span>
@@ -214,9 +219,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-2.1.3.min.js"><\/script>')</script>
 
-    <!--<script src="js/vendor/jquery.touchSwipe.min.js"></script>-->
-    <script src="js/vendor/jquery.mobile.custom.min.js"></script>
+    <script src="js/vendor/jquery.mobile.custom.min.js"></script> <!-- for swipe -->
+    <script src="js/vendor/jquery.countdown.min.js"></script>
 
     <script src="js/main.js"></script>
+    <script src="js/schedule.js"></script>
 </body>
 </html>
