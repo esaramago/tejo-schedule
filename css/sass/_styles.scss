@@ -168,7 +168,7 @@
 }
 .nav {
     position: absolute;
-    top: 10px;
+    top: 0;
     left: 0;
     right: 0;
     display: table;
@@ -204,7 +204,7 @@
     overflow: auto;
     box-sizing: border-box;
     height: 100%;
-    margin: 70px -12px 0 -12px;
+    margin: 55px -12px 0 -12px;
     color: $grey;
     font-size: 1.7rem;
     text-align: center;
@@ -231,15 +231,14 @@
         width: 55px;
         padding: 6px 0;
     }
-    .current,
     .comming {
         box-sizing: border-box;
         border: 1px solid $base-color;
         background-color: #f3fbff;
         color: $base-color;
-    }
-    .current {
-        border-width: 2px;
-        font-weight: 500;
+        &.current {
+            border-width: 2px;
+            font-weight: 500;
+        }
     }
 }

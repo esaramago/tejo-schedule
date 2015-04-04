@@ -1,117 +1,46 @@
-function countdown() {
+function scheduleLoop(schedule_list, current_time, schedule, array, dayoftheweek, hour, minute) {
 
-    // Get date and time
-    var date = new Date();
-    var dayoftheweek = date.getDay(); // get day of the week
-    var dd = date.getDate();
-    var mm = date.getMonth()+1; //January is 0!
-    var yyyy = date.getFullYear();
-    var hour = date.getHours(); // get hours
-    var minute = date.getMinutes(); // get minutes
-    var second = date.getSeconds(); // get seconds
+    // check which day of the week is today
+    if (
+        schedule_list === 'saturday' && dayoftheweek == 6 ||
+        schedule_list === 'sunday' && dayoftheweek == 0 ||
+        schedule_list === 'weekday' && dayoftheweek > 0 && dayoftheweek < 6
+    ) {
+        next_schedule_index = 0;
 
-    // Get JSON data
-    $.getJSON('json/barreiro-terreiro.json', function( data ) {
+        // loop json to get data and build html of today's schedule
+        $.each( schedule, function( key, val ) {
 
-        // if it's saturday
-        if ( dayoftheweek === 6 ) {
-            current_schedule = data.saturdays;
-            $('.nav-tab').eq(1).click();
-        }
-        // if it's sunday
-        else if ( dayoftheweek === 0 ) {
-            current_schedule = data.sundays;
-            $('.nav-tab').eq(2).click();
-        }
-        else {
-            current_schedule = data.weekdays;
-        }
-
-        // loop json to get data and build html
-        $.each( current_schedule, function( key, val ) {
+            // get "decimal" schedule time
+            var schedule_time = val.hour +'.'+ val.minute;
+            if ( schedule_time < 5) { // if current time is after midnight
+                schedule_time = Number(schedule_time) + 24;
+            }
 
             // get next departure time
-            if (val.hour == hour && val.minute > minute || val.hour > hour && val.minute < minute) {
+            if (schedule_time <= current_time) {
+                array.push( '<div><span>' + val.hour +':'+ val.minute + '</span></div>');
 
-                // Creating html for countdown with Final Countdown plugin
-                $('#outbound-countdown').countdown(yyyy +'/'+ mm +'/'+ dd +' '+ val.hour +':'+ val.minute +':00', function(event) {
-                    var $this = $(this).html(event.strftime(''
-                        + '<div class="countdown-item"><span>%H</span></div>'
-                        + '<span class="countdown-separator">:</span>'
-                        + '<div class="countdown-item"><span>%M</span></div>'
-                        + '<span class="countdown-separator">:</span>'
-                        + '<div class="countdown-item"><span>%S</span></div>'));
-                }).on('finish.countdown', function(event) {
-                    countdown();
-                    schedule();
-                });
-
-                // Next departures
-                $('#next-outbound-departure').text(val.hour+':'+val.minute);
-                //$('#later-outbound-departure').text();
-
-                // stop loop
-                return false;
+                next_schedule_index++; // here i can get the last true iteration. That iteration is the next schedule time
+            }
+            else if (schedule_time > current_time) {
+                array.push( '<div><span class="comming">' + val.hour +':'+ val.minute + '</span></div>');
             }
         });
-    });
-}
 
-function scheduleLoop(dayoftheweek, current_time, schedule, array, hour, minute) {
+        // get hour and minute of the next schedule
+        next_schedule_time_hour = schedule[next_schedule_index]['hour'];
+        next_schedule_time_minute = schedule[next_schedule_index]['minute'];
 
-    next_schedule_index = 0;
-    // loop json to get data and build html
-    $.each( schedule, function( key, val ) {
-
-        // get next departure time
-        /*if (val.hour <= hour) {
-            if (val.hour < hour) {
-                array.push( '<div><span>' + val.hour +':'+ val.minute + '</span></div>');
-                //console.log('1: '+ val.hour +':'+ val.minute)
-            }
-            else if (val.hour == hour && minute >= val.minute) {
-                array.push( '<div><span>' + val.hour +':'+ val.minute + '</span></div>');
-                console.log('prev 2: '+ val.hour +':'+ val.minute)
-            }
-            else if (val.hour == hour && minute < val.minute) {
-                array.push( '<div><span class="current">' + val.hour +':'+ val.minute + '</span></div>');
-                console.log('current 1: '+ val.hour +':'+ val.minute)
-            }
-        }
-        else if (val.hour > hour && minute < val.minute) {
-            array.push( '<div><span class="current">' + val.hour +':'+ val.minute + '</span></div>');
-            console.log('current 2: '+ val.hour +':'+ val.minute)
-        }
-        else {
-            array.push( '<div><span class="comming">' + val.hour +':'+ val.minute + '</span></div>');
-        }*/
-
-        // get "decimal" schedule time
-        var schedule_time = val.hour +'.'+ val.minute;
-        if ( schedule_time < 5) { // if current time is after midnight
-            schedule_time = Number(schedule_time) + 24;
-        }
-        console.log(schedule_time);
-
-        if (schedule_time <= current_time) {
-            array.push( '<div><span>' + val.hour +':'+ val.minute + '</span></div>');
-
-            next_schedule_index++; // here i can get the last true iteration. That iteration is the next schedule time
-        }
-        else if (schedule_time > current_time) {
-            array.push( '<div><span class="comming">' + val.hour +':'+ val.minute + '</span></div>');
-        }
-    });
-
-    // append html and add "current" class to the next schedule time
-    if (dayoftheweek === 'saturday') { // if it's saturday
-        $("#saturdays-outbound-schedule").html(array).find('span:eq('+ next_schedule_index +')').addClass('current');
+        // get hour and minute of the schedule after the next
+        later_schedule_time_hour = schedule[next_schedule_index + 1]['hour'];
+        later_schedule_time_minute = schedule[next_schedule_index + 1]['minute'];
     }
-    else if (dayoftheweek === 'sunday') { // if it's sunday
-        $("#sundays-outbound-schedule").html(array).find('span:eq('+ next_schedule_index +')').addClass('current');
-    }
-    else { // if it's weekday
-        $("#weekdays-outbound-schedule").html(array).find('span:eq('+ next_schedule_index +')').addClass('current');
+    else {
+        // Populate schedules that aren't from today
+        $.each( schedule, function( key, val ) {
+            array.push( "<div><span>" + val.hour +':'+ val.minute + "</span></div>");
+        });
     }
 
 }
@@ -120,6 +49,9 @@ function schedule() {
     // Get Time
     var date = new Date(); // create current day valiable
     var dayoftheweek = date.getDay(); // get day of the week
+    var dd = date.getDate();
+    var mm = date.getMonth()+1; //January is 0!
+    var yyyy = date.getFullYear();
     var hour = date.getHours(); // get hours
     var minute = date.getMinutes(); // get minutes
     var second = date.getSeconds(); // get seconds
@@ -131,7 +63,6 @@ function schedule() {
     if ( current_time < 5) {
         current_time = Number(current_time + 24);
     }
-    console.log(current_time);
 
     // Get JSON data
     $.getJSON( "json/barreiro-terreiro.json", function( data ) {
@@ -141,17 +72,55 @@ function schedule() {
         var saturdays_arr   = [];
         var sundays_arr     = [];
 
-        scheduleLoop('weekday', current_time, data.weekdays, weekdays_arr, hour, minute);
-        scheduleLoop('saturday', current_time, data.saturdays, saturdays_arr, hour, minute);
-        scheduleLoop('sunday', current_time, data.sundays, sundays_arr, hour, minute);
+        scheduleLoop('saturday', current_time, data.saturdays, saturdays_arr, dayoftheweek, hour, minute);
+        scheduleLoop('sunday', current_time, data.sundays, sundays_arr, hour, dayoftheweek, minute);
+        scheduleLoop('weekday', current_time, data.weekdays, weekdays_arr, dayoftheweek, hour, minute);
 
-        console.log(data.saturdays[next_schedule_index]['hour']);
-        console.log(data.saturdays[next_schedule_index]['minute']);
+        $("#saturdays-outbound-schedule").html(saturdays_arr).find('span:eq('+ next_schedule_index +')').addClass('current');
+        $("#sundays-outbound-schedule").html(sundays_arr).find('span:eq('+ next_schedule_index +')').addClass('current');
+        $("#weekdays-outbound-schedule").html(weekdays_arr).find('span:eq('+ next_schedule_index +')').addClass('current');
+
+
+        console.log(yyyy +'/'+ mm +'/'+ dd +' '+ next_schedule_time_hour +':'+ next_schedule_time_minute +':00')
+
+        $('#outbound-countdown').countdown(yyyy +'/'+ mm +'/'+ dd +' '+ next_schedule_time_hour +':'+ next_schedule_time_minute +':00', function(event) {
+            var $this = $(this).html(event.strftime(''
+                + '<div class="countdown-item"><span>%H</span></div>'
+                + '<span class="countdown-separator">:</span>'
+                + '<div class="countdown-item"><span>%M</span></div>'
+                + '<span class="countdown-separator">:</span>'
+                + '<div class="countdown-item"><span>%S</span></div>'));
+        }).on('finish.countdown', function(event) {
+            schedule();
+        });
+
+        // Next departures
+        $('#next-outbound-departure').text(next_schedule_time_hour +':'+ next_schedule_time_minute);
+        $('#later-outbound-departure').text(later_schedule_time_hour +':'+later_schedule_time_minute);
+
+        // if it's saturday
+        if ( dayoftheweek === 6 ) {
+            // open saturday's tab
+            $('.nav-tab').eq(1).click();
+            // add class "current" to the next schedule time if today it's saturday
+            $("#saturdays-outbound-schedule").find('span:eq('+ next_schedule_index +')').addClass('current');
+        }
+        // if it's sunday
+        else if ( dayoftheweek === 0 ) {
+            // open sunday's tab
+            $('.nav-tab').eq(2).click();
+            // add class "current" to the next schedule time if today it's sunday
+            $("#sundays-outbound-schedule").find('span:eq('+ next_schedule_index +')').addClass('current');
+        }
+        // if it's a weekday
+        else {
+            // add class "current" to the next schedule time if today it's a weekday
+            $("#weekdays-outbound-schedule").find('span:eq('+ next_schedule_index +')').addClass('current');
+        }
 
     });
 
 
 }
 
-countdown();
 schedule();

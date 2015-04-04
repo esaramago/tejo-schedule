@@ -242,7 +242,7 @@ ul {
 
 .nav {
 	position: absolute;
-	top: 10px;
+	top: 0;
 	left: 0;
 	right: 0;
 	display: table;
@@ -292,7 +292,7 @@ ul {
 	overflow: auto;
 	box-sizing: border-box;
 	height: 100%;
-	margin: 70px -12px 0 -12px;
+	margin: 55px -12px 0 -12px;
 	color: #888;
 	font-size: 1.7rem;
 	text-align: center;
@@ -337,7 +337,6 @@ ul {
 	padding: 6px 0;
 }
 
-.schedule .current,
 .schedule .comming {
 	box-sizing: border-box;
 	border: 1px solid #508fcc;
@@ -345,7 +344,7 @@ ul {
 	color: #508fcc;
 }
 
-.schedule .current {
+.schedule .comming.current {
 	border-width: 2px;
 	font-weight: 500;
 }
