@@ -93,11 +93,11 @@ function schedule(way, trip) {
 
         $('#'+ way +'-countdown').countdown(yyyy +'/'+ mm +'/'+ dd +' '+ next_schedule_time_hour +':'+ next_schedule_time_minute +':00', function(event) {
             var $this = $(this).html(event.strftime(''
-                + '<div class="countdown-item"><span>%H</span></div>'
+                + '<div class="countdown-item"><span class="countdown-value">%H</span></div>'
                 + '<span class="countdown-separator">:</span>'
-                + '<div class="countdown-item"><span>%M</span></div>'
+                + '<div class="countdown-item"><span class="countdown-value">%M</span></div>'
                 + '<span class="countdown-separator">:</span>'
-                + '<div class="countdown-item"><span>%S</span></div>'));
+                + '<div class="countdown-item"><span class="countdown-value">%S</span></div>'));
         }).on('finish.countdown', function(event) {
             schedule();
         });
@@ -106,18 +106,20 @@ function schedule(way, trip) {
         $('#next-'+ way +'-departure').text(next_schedule_time_hour +':'+ next_schedule_time_minute);
         $('#later-'+ way +'-departure').text(later_schedule_time_hour +':'+later_schedule_time_minute);
 
+        var $navtab = $('#'+ way +'-schedule').find('.nav-tab');
+
         // if it's saturday
         if ( dayoftheweek === 6 /*|| dayoftheweek === 0 && hour < 5*/) {
 
             // open saturday's tab
-            $('.nav-tab').eq(1).click();
+            $navtab.eq(1).click();
             // add class "current" to the next schedule time if today it's saturday
             $('#saturdays-'+ way +'-schedule').find('span:eq('+ next_schedule_index +')').addClass('current');
         }
         // if it's sunday
         else if ( dayoftheweek === 0 ) {
             // open sunday's tab
-            $('.nav-tab').eq(2).click();
+            $navtab.eq(2).click();
             // add class "current" to the next schedule time if today it's sunday
             $('#sundays-'+ way +'-schedule').find('span:eq('+ next_schedule_index +')').addClass('current');
         }

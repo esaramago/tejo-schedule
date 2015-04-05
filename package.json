@@ -11,6 +11,8 @@
         "gulp-sass": "*",
         "gulp-combine-media-queries": "*",
         "gulp-minify-css": "*",
+        "gulp-file-include": "*",
+        "gulp-rename": "*",
         "gulp-watch": "*",
         "gulp-plumber": "*",
         "gulp-notify": "*"

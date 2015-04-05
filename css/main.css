@@ -55,6 +55,17 @@ ul {
 	font-weight: 300;
 }
 
+.loading {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	-webkit-animation: spin 1s linear infinite;
+	animation: spin 1s linear infinite;
+}
+
 .wrapper,
 .page {
 	position: absolute;
@@ -204,18 +215,21 @@ ul {
 	line-height: 66px;
 }
 
-.countdown-item > span {
-	position: relative;
-}
-
 .countdown-item:before {
 	content: "";
 	position: absolute;
 	top: 50%;
 	display: block;
 	width: 100%;
-	height: 1px;
+	height: 2px;
+	margin-top: 2px;
 	background-color: #A7C2DC;
+}
+
+.countdown-value {
+	position: relative;
+	display: block;
+	height: 100%;
 }
 
 .countdown-separator {
@@ -347,5 +361,22 @@ ul {
 .schedule .comming.current {
 	border-width: 2px;
 	font-weight: 500;
+}
+
+@-webkit-keyframes spin {
+
+100% {
+	-webkit-transform: rotate(360deg);
+}
+
+}
+
+@keyframes spin {
+
+100% {
+	-webkit-transform: rotate(360deg);
+	transform: rotate(360deg);
+}
+
 }
 
