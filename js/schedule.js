@@ -44,7 +44,7 @@ function scheduleLoop(schedule_list, current_time, schedule, array, dayoftheweek
     }
 
 }
-function schedule() {
+function schedule(way, trip) {
 
     // Get Time
     var date = new Date(); // create current day valiable
@@ -56,6 +56,16 @@ function schedule() {
     var minute = date.getMinutes(); // get minutes
     var second = date.getSeconds(); // get seconds
 
+    if (hour < 5) {
+        if ( dayoftheweek == 0 ) {
+            dayoftheweek = 6;
+        }
+        else {
+            dayoftheweek = dayoftheweek - 1;
+
+        }
+    }
+
     // get "decimal" current time
     var current_time = hour +'.'+ minute;
 
@@ -65,7 +75,7 @@ function schedule() {
     }
 
     // Get JSON data
-    $.getJSON( "json/barreiro-terreiro.json", function( data ) {
+    $.getJSON('json/'+ trip +'.json', function( data ) {
 
         // create arrays
         var weekdays_arr    = [];
@@ -76,14 +86,14 @@ function schedule() {
         scheduleLoop('sunday', current_time, data.sundays, sundays_arr, hour, dayoftheweek, minute);
         scheduleLoop('weekday', current_time, data.weekdays, weekdays_arr, dayoftheweek, hour, minute);
 
-        $("#saturdays-outbound-schedule").html(saturdays_arr).find('span:eq('+ next_schedule_index +')').addClass('current');
-        $("#sundays-outbound-schedule").html(sundays_arr).find('span:eq('+ next_schedule_index +')').addClass('current');
-        $("#weekdays-outbound-schedule").html(weekdays_arr).find('span:eq('+ next_schedule_index +')').addClass('current');
+        $('#saturdays-'+ way +'-schedule').html(saturdays_arr).find('span:eq('+ next_schedule_index +')').addClass('current');
+        $('#sundays-'+ way +'-schedule').html(sundays_arr).find('span:eq('+ next_schedule_index +')').addClass('current');
+        $('#weekdays-'+ way +'-schedule').html(weekdays_arr).find('span:eq('+ next_schedule_index +')').addClass('current');
 
 
-        console.log(yyyy +'/'+ mm +'/'+ dd +' '+ next_schedule_time_hour +':'+ next_schedule_time_minute +':00')
+        //console.log(yyyy +'/'+ mm +'/'+ dd +' '+ next_schedule_time_hour +':'+ next_schedule_time_minute +':00')
 
-        $('#outbound-countdown').countdown(yyyy +'/'+ mm +'/'+ dd +' '+ next_schedule_time_hour +':'+ next_schedule_time_minute +':00', function(event) {
+        $('#'+ way +'-countdown').countdown(yyyy +'/'+ mm +'/'+ dd +' '+ next_schedule_time_hour +':'+ next_schedule_time_minute +':00', function(event) {
             var $this = $(this).html(event.strftime(''
                 + '<div class="countdown-item"><span>%H</span></div>'
                 + '<span class="countdown-separator">:</span>'
@@ -95,32 +105,36 @@ function schedule() {
         });
 
         // Next departures
-        $('#next-outbound-departure').text(next_schedule_time_hour +':'+ next_schedule_time_minute);
-        $('#later-outbound-departure').text(later_schedule_time_hour +':'+later_schedule_time_minute);
+        $('#next-'+ way +'-departure').text(next_schedule_time_hour +':'+ next_schedule_time_minute);
+        $('#later-'+ way +'-departure').text(later_schedule_time_hour +':'+later_schedule_time_minute);
 
         // if it's saturday
-        if ( dayoftheweek === 6 ) {
+        if ( dayoftheweek === 6 /*|| dayoftheweek === 0 && hour < 5*/) {
+
             // open saturday's tab
             $('.nav-tab').eq(1).click();
             // add class "current" to the next schedule time if today it's saturday
-            $("#saturdays-outbound-schedule").find('span:eq('+ next_schedule_index +')').addClass('current');
+            $('#saturdays-'+ way +'-schedule').find('span:eq('+ next_schedule_index +')').addClass('current');
         }
         // if it's sunday
         else if ( dayoftheweek === 0 ) {
             // open sunday's tab
             $('.nav-tab').eq(2).click();
             // add class "current" to the next schedule time if today it's sunday
-            $("#sundays-outbound-schedule").find('span:eq('+ next_schedule_index +')').addClass('current');
+            $('#sundays-'+ way +'-schedule').find('span:eq('+ next_schedule_index +')').addClass('current');
         }
         // if it's a weekday
         else {
             // add class "current" to the next schedule time if today it's a weekday
-            $("#weekdays-outbound-schedule").find('span:eq('+ next_schedule_index +')').addClass('current');
+            $('#weekdays-'+ way +'-schedule').find('span:eq('+ next_schedule_index +')').addClass('current');
         }
 
     });
-
-
 }
 
-schedule();
+// get trip
+var outbound_trip =  $('#return-trip').data('destination') + '-' + $('#outbound-trip').data('destination');
+var return_trip = $('#outbound-trip').data('destination') + '-' + $('#return-trip').data('destination');
+
+schedule('outbound', outbound_trip);
+schedule('return', return_trip);

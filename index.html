@@ -60,7 +60,7 @@
                 </h1>
             </header>
             <section class="page-content">
-                <article class="box" tabindex="0" id="outbound-trip">
+                <article class="box" tabindex="0" id="outbound-trip" data-destination="barreiro">
                     <div class="route">
                         <span class="label">De</span>
                         <span class="route-departure">Barreiro</span>
@@ -97,7 +97,7 @@
                     </div>
                 </article>
 
-                <article class="box" tabindex="0" id="return-trip">
+                <article class="box" tabindex="0" id="return-trip" data-destination="terreiro">
                     <div class="route">
                         <span class="label">De</span>
                         <span class="route-departure">Terreiro do Paço</span>
@@ -109,17 +109,17 @@
 
                     <div class="content-box">
 
-                        <div class="countdown" id="return-contdown">
+                        <div class="countdown" id="return-countdown">
                             <div class="countdown-item">
-                                <span>00</span>
+                                <span id="return-hour">0 -</span>
                             </div>
                             <span class="countdown-separator">:</span>
                             <div class="countdown-item">
-                                <span>12</span>
+                                <span id="return-minute">- -</span>
                             </div>
                             <span class="countdown-separator">:</span>
                             <div class="countdown-item">
-                                <span>23</span>
+                                <span id="return-second">- -</span>
                             </div>
                         </div>
 
@@ -174,7 +174,7 @@
                 </h1>
             </header>
             <section class="page-content">
-                <article class="box">
+                <article class="box schedule-box">
                     <ul class="nav">
                         <li tabindex="0" class="nav-tab active" data-schedule="weekdays-return">Dias úteis</li>
                         <li tabindex="0" class="nav-tab" data-schedule="saturdays-return">Sábados</li>
