@@ -62,7 +62,6 @@ function schedule(way, trip) {
         }
         else {
             dayoftheweek = dayoftheweek - 1;
-
         }
     }
 
@@ -83,13 +82,12 @@ function schedule(way, trip) {
         var sundays_arr     = [];
 
         scheduleLoop('saturday', current_time, data.saturdays, saturdays_arr, dayoftheweek, hour, minute);
-        scheduleLoop('sunday', current_time, data.sundays, sundays_arr, hour, dayoftheweek, minute);
+        scheduleLoop('sunday', current_time, data.sundays, sundays_arr, dayoftheweek, hour, minute);
         scheduleLoop('weekday', current_time, data.weekdays, weekdays_arr, dayoftheweek, hour, minute);
 
         $('#saturdays-'+ way +'-schedule').html(saturdays_arr).find('span:eq('+ next_schedule_index +')').addClass('current');
         $('#sundays-'+ way +'-schedule').html(sundays_arr).find('span:eq('+ next_schedule_index +')').addClass('current');
         $('#weekdays-'+ way +'-schedule').html(weekdays_arr).find('span:eq('+ next_schedule_index +')').addClass('current');
-
 
         //console.log(yyyy +'/'+ mm +'/'+ dd +' '+ next_schedule_time_hour +':'+ next_schedule_time_minute +':00')
 
