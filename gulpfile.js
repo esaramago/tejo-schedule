@@ -1,9 +1,9 @@
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
     cmq = require('gulp-combine-media-queries'),
-    minifycss = require('gulp-minify-css'),
     fileinclude = require('gulp-file-include'),
     rename = require("gulp-rename"),
+    uglify = require('gulp-uglify');
     notify = require('gulp-notify'),
     plumber = require('gulp-plumber'),
     watch = require('gulp-watch');
@@ -63,10 +63,22 @@ gulp.task('file-include', function() {
         }));
 });
 
+gulp.task('compress', function() {
+  /*gulp.src('css/*.css')
+    .pipe(uglify())
+    .pipe(gulp.dest('css'))
+
+    .pipe(notify({
+        title: "Unglify",
+        message: "uglified!"
+    }));*/
+});
+
 
 gulp.task('watch', function() {
     gulp.watch('css/sass/*.scss', ['styles']);
     gulp.watch(['templates/*.tpl', 'templates/includes/*.tpl'], ['file-include']);
+    gulp.watch('css/sass/*.scss', ['compress']);
 });
 
 gulp.task('default', ['watch'], function() {

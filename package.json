@@ -1,5 +1,5 @@
 {
-    "name": "horarios-transtejo",
+    "name": "horarios-tejo",
     "description": "App to check Transtejo cruises schedule.",
     "author": "esaramago <emanuel@esaramago.com>",
     "repository": {
@@ -13,6 +13,7 @@
         "gulp-minify-css": "*",
         "gulp-file-include": "*",
         "gulp-rename": "*",
+        "gulp-uglify": "*",
         "gulp-watch": "*",
         "gulp-plumber": "*",
         "gulp-notify": "*"

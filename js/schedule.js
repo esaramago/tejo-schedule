@@ -56,7 +56,8 @@ function schedule(way, trip) {
     var minute = date.getMinutes(); // get minutes
     var second = date.getSeconds(); // get seconds
 
-    if (hour < 5) {
+    // if current time is after midnight change to last day
+    if (hour < 2) {
         if ( dayoftheweek == 0 ) {
             dayoftheweek = 6;
         }
@@ -66,11 +67,11 @@ function schedule(way, trip) {
     }
 
     // get "decimal" current time
-    var current_time = hour +'.'+ minute;
+    var current_time = Number(hour +'.'+ minute);
 
     // if current time is after midnight
-    if ( current_time < 5) {
-        current_time = Number(current_time + 24);
+    if ( current_time < 2) {
+        current_time = current_time + 24;
     }
 
     // Get JSON data

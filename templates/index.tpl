@@ -170,7 +170,12 @@
         </div>
     </div>
 
+    <script src="cordova.js"></script>
     <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        app.initialize();
+    </script>
 
     <script src="js/vendor/jquery.mobile.custom.min.js"></script> <!-- for swipe -->
     <script src="js/vendor/jquery.countdown.min.js"></script>
