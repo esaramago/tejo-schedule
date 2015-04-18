@@ -47,14 +47,14 @@ function scheduleLoop(schedule_list, current_time, schedule, array, dayoftheweek
 function schedule(way, trip) {
 
     // Get Time
-    var date = new Date(); // create current day valiable
-    var dayoftheweek = date.getDay(); // get day of the week
-    var dd = date.getDate();
-    var mm = date.getMonth()+1; //January is 0!
-    var yyyy = date.getFullYear();
-    var hour = date.getHours(); // get hours
-    var minute = date.getMinutes(); // get minutes
-    var second = date.getSeconds(); // get seconds
+    var date = new Date(), // create current day valiable
+        dayoftheweek = date.getDay(), // get day of the week
+        dd = date.getDate(),
+        mm = date.getMonth()+1, //January is 0!
+        yyyy = date.getFullYear(),
+        hour = date.getHours(), // get hours
+        minute = date.getMinutes(), // get minutes
+        second = date.getSeconds(); // get seconds
 
     // if current time is after midnight change to last day
     if (hour < 2) {
@@ -100,7 +100,8 @@ function schedule(way, trip) {
                 + '<span class="countdown-separator">:</span>'
                 + '<div class="countdown-item"><span class="countdown-value">%S</span></div>'));
         }).on('finish.countdown', function(event) {
-            schedule();
+            schedule('outbound', outbound_trip);
+            schedule('return', return_trip);
         });
 
         // Next departures
@@ -133,8 +134,8 @@ function schedule(way, trip) {
     });
 }
 // get trip
-var outbound_trip =  $('#return-trip').data('destination') + '-' + $('#outbound-trip').data('destination');
-var return_trip = $('#outbound-trip').data('destination') + '-' + $('#return-trip').data('destination');
+var outbound_trip = $('#outbound-trip').data('destination') + '-' + $('#return-trip').data('destination');
+var return_trip =  $('#return-trip').data('destination') + '-' + $('#outbound-trip').data('destination');
 
 schedule('outbound', outbound_trip);
 schedule('return', return_trip);
