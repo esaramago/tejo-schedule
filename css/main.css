@@ -37,9 +37,8 @@ ul {
 .fadeout {
 	visibility: hidden;
 	opacity: 0;
-	-webkit-transition: visibility 0s linear 0.3s, opacity 0.3s linear;
-	-moz-transition: visibility 0s linear 0.3s, opacity 0.3s linear;
-	transition: visibility 0s linear 0.3s, opacity 0.3s linear;
+	-webkit-transition: "visibility 0s linear 0.3s, opacity 0.3s linear";
+	transition: "visibility 0s linear 0.3s, opacity 0.3s linear";
 }
 
 .fadein {
@@ -82,15 +81,17 @@ ul {
 }
 
 .page {
-	left: 100%;
+	left: 0;
 	background-color: #ededed;
-	-webkit-transition: left .4s;
-	-moz-transition: left .4s;
-	transition: left .4s;
+	-webkit-transform: translateX(100%);
+	transform: translateX(100%);
+	-webkit-transition: -webkit- transform 0.4s;
+	transition: transform 0.4s;
 }
 
 .page.active {
-	left: 0;
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
 }
 
 .page-header {
@@ -327,17 +328,15 @@ ul {
 	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
 	opacity: 0;
-	-webkit-transition: opacity .2s .2s;
-	-moz-transition: opacity .2s .2s;
-	transition: opacity .2s .2s;
+	-webkit-transition: opacity 0.2s 0.2s;
+	transition: opacity 0.2s 0.2s;
 }
 
 .schedule.active {
 	top: 0;
 	opacity: 1;
-	-webkit-transition: opacity .2s 0;
-	-moz-transition: opacity .2s 0;
-	transition: opacity .2s 0;
+	-webkit-transition: opacity 0.2s 0;
+	transition: opacity 0.2s 0;
 }
 
 .schedule > div {

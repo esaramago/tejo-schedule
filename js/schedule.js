@@ -132,7 +132,6 @@ function schedule(way, trip) {
 
     });
 }
-
 // get trip
 var outbound_trip =  $('#return-trip').data('destination') + '-' + $('#outbound-trip').data('destination');
 var return_trip = $('#outbound-trip').data('destination') + '-' + $('#return-trip').data('destination');

@@ -21,7 +21,7 @@
 @keyframes spin {
     100% {
         -webkit-transform: rotate(360deg);
-                transform:rotate(360deg);
+                transform: rotate(360deg);
     }
 }
 
@@ -40,11 +40,12 @@
     height: 100%;
 }
 .page {
-    left: 100%;
+    left: 0;
     background-color: $light-grey;
-    @include transition(left .4s);
+    @include transform(translateX(100%));
+    @include transition(transform .4s);
     &.active {
-        left: 0;
+        @include transform(translateX(0));
     }
 }
 

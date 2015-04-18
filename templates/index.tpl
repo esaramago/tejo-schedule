@@ -56,7 +56,7 @@
             <header class="page-header">
                 <h1 class="page-heading">
                     Horários
-                    <span class="bigger">Transtejo</span>
+                    <span class="bigger">Tejo</span>
                 </h1>
             </header>
             <section class="page-content">

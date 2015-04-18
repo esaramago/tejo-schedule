@@ -4,9 +4,38 @@ $base-color-light: #A7C2DC;
 $light-grey: #ededed;
 $grey: #888;
 
-// Mixins
-@mixin transition($transition) {
-	-webkit-transition: #{$transition};
-       -moz-transition: #{$transition};
-	        transition: #{$transition};
+
+// Tranform mixin
+@mixin transform($val) {
+	-webkit-transform: $val;
+	        transform: $val;
+}
+
+
+// Transition mixin
+
+// loops through all arguments and prefixes the ones that need it (in this case only transform)
+@function vendor-args($arg, $vendor) {
+    $result: ();
+    @each $i in $arg {
+      @if $i == transform { $result: append($result, #{$vendor}$i); }
+      @else { $result: append($result, $i); }
+    }
+  @return $result;
+}
+
+// general vendor mixin
+@mixin vendor($property, $args...){
+  @each $vendor in ('-webkit-', '') {
+    $out: null;
+    @each $arg in nth($args,1) {
+      $out: ($out, vendor-args($arg, $vendor));
+    }
+    #{$vendor}#{$property}: $out;
+  }
+}
+
+// general transition mixin
+@mixin transition($args...) {
+  @include vendor(transition, $args);
 }
