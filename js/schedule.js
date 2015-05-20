@@ -58,6 +58,7 @@ function schedule(way, trip) {
 
     // if current time is after midnight change to last day
     if (hour < 2) {
+
         if ( dayoftheweek == 0 ) {
             dayoftheweek = 6;
         }
@@ -90,6 +91,11 @@ function schedule(way, trip) {
         $('#sundays-'+ way +'-schedule').html(sundays_arr).find('span:eq('+ next_schedule_index +')').addClass('current');
         $('#weekdays-'+ way +'-schedule').html(weekdays_arr).find('span:eq('+ next_schedule_index +')').addClass('current');
 
+        // if next schedule is after midnight
+        if (next_schedule_time_hour >= 0 && next_schedule_time_hour <= 2) {
+            // fix day
+            dd = dd + 1;
+        }
         //console.log(yyyy +'/'+ mm +'/'+ dd +' '+ next_schedule_time_hour +':'+ next_schedule_time_minute +':00')
 
         $('#'+ way +'-countdown').countdown(yyyy +'/'+ mm +'/'+ dd +' '+ next_schedule_time_hour +':'+ next_schedule_time_minute +':00', function(event) {
@@ -99,10 +105,10 @@ function schedule(way, trip) {
                 + '<div class="countdown-item"><span class="countdown-value">%M</span></div>'
                 + '<span class="countdown-separator">:</span>'
                 + '<div class="countdown-item"><span class="countdown-value">%S</span></div>'));
-        }).on('finish.countdown', function(event) {
+        })/*.on('finish.countdown', function(event) {
             schedule('outbound', outbound_trip);
             schedule('return', return_trip);
-        });
+        });*/
 
         // Next departures
         $('#next-'+ way +'-departure').text(next_schedule_time_hour +':'+ next_schedule_time_minute);

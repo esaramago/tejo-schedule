@@ -1,21 +1,21 @@
 {
-    "name": "horarios-tejo",
-    "description": "App to check Transtejo cruises schedule.",
-    "author": "esaramago <emanuel@esaramago.com>",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/esaramago/tejo-schedule"
-    },
-    "devDependencies": {
-        "gulp": "*",
-        "gulp-sass": "*",
-        "gulp-combine-media-queries": "*",
-        "gulp-minify-css": "*",
-        "gulp-file-include": "*",
-        "gulp-rename": "*",
-        "gulp-uglify": "*",
-        "gulp-watch": "*",
-        "gulp-plumber": "*",
-        "gulp-notify": "*"
-    }
+  "name": "horarios-tejo",
+  "description": "App to check Transtejo cruises schedule.",
+  "author": "esaramago <emanuel@esaramago.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/esaramago/tejo-schedule"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-combine-media-queries": "*",
+    "gulp-file-include": "*",
+    "gulp-minify-css": "*",
+    "gulp-notify": "*",
+    "gulp-plumber": "*",
+    "gulp-rename": "*",
+    "gulp-sass": "*",
+    "gulp-uglify": "*",
+    "gulp-watch": "*"
+  }
 }
